@@ -37,7 +37,7 @@ public class LoginController {
 	private UserRepository repoUser;
 
 	@PostMapping
-	public String login(@RequestBody Login userLogin) {
+	public ResponseEntity<String> login(@RequestBody Login userLogin) {
 
 		if (repoUser.emailExists(userLogin.email()) > 0) {
 			
@@ -49,14 +49,14 @@ public class LoginController {
 
 				var usuario = (User) authentiication.getPrincipal();
 
-				return tokenService.generateToken(usuario);
+				return ResponseEntity.status(HttpStatus.OK).body( tokenService.generateToken(usuario) );
 			
 			} else {
-				return "Usuário bloqueado! Não será possível realizar o login até efetuar o desbloqueio...";
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body( "Usuário bloqueado! Não será possível realizar o login até efetuar o desbloqueio..." );
 			}
 
 		} else {
-			return "Usuário inexistente ou senha inválida";
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body( "Usuário inexistente ou senha inválida" );
 		}
 	}
 
