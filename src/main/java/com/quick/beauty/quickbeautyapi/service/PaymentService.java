@@ -52,24 +52,24 @@ public class PaymentService {
 
 		// Corpo da requisição
 		String requestBody = "{\n"
-				+ "  \"transaction_amount\":"+ requestData.get("price").toString() + ",\n"
-				+ "  \"description\": \""+ requestData.get("description").toString() + "\",\n"
+				+ "  \"transaction_amount\":200,\n"
+				+ "  \"description\": \"Servcos esteticos\",\n"
 				+ "  \"payment_method_id\": \"pix\",\n"
 				+ "  \"payer\": {\n"
-				+ "    \"email\": \""+ requestData.get("email").toString() + "\",\n"
-				+ "    \"first_name\": \""+ requestData.get("firstName").toString() + "\",\n"
-				+ "    \"last_name\": \"" + requestData.get("lastName").toString() + "\",\n"
+				+ "    \"email\": \"email@email.com\",\n"
+				+ "    \"first_name\": \"Teste\",\n"
+				+ "    \"last_name\": \"De Pagamento\",\n"
 				+ "    \"identification\": {\n"
 				+ "        \"type\": \"CPF\",\n"
 				+ "        \"number\": \"19119119100\"\n"
 				+ "    },\n"
 				+ "    \"address\": {\n"
-				+ "        \"zip_code\": \""+ requestData.get("cep").toString() + "\",\n"
-				+ "        \"street_name\": \""+ requestData.get("streetName").toString() + "\",\n"
-				+ "        \"street_number\": \"" + requestData.get("streetNumber").toString() + "\",\n"
-				+ "        \"neighborhood\": \""+ requestData.get("neighborhood").toString() + "\",\n"
-				+ "        \"city\": \"" + requestData.get("city").toString() + "\",\n"
-				+ "        \"federal_unit\": \"" + requestData.get("federalUnit").toString() + "\"\n"
+				+ "        \"zip_code\": \"02132190\",\n"
+				+ "        \"street_name\": \"Rua Sem nome\",\n"
+				+ "        \"street_number\": \"21\",\n"
+				+ "        \"neighborhood\": \"Bairro\",\n"
+				+ "        \"city\": \"Cidade\",\n"
+				+ "        \"federal_unit\": \"SP\"\n"
 				+ "    }\n"
 				+ "  }\n"
 				+ "}";
@@ -99,7 +99,7 @@ public class PaymentService {
 				if ((repoCli.findByUserId(client) != null) 
 						&& (repoPro.findByUserId(professional) != null)) {
 					
-					LocalDateTime now = LocalDateTime.parse(requestData.get("time").toString());
+					LocalDateTime now = LocalDateTime.now();
 					
 					pay.setPrice(price.doubleValue());
 					pay.setPayDay(now);
