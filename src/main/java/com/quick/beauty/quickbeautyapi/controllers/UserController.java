@@ -2,6 +2,7 @@ package com.quick.beauty.quickbeautyapi.controllers;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -138,6 +139,29 @@ public class UserController {
 		resultOfUserQuery.setDateOfBirth(null);
 		
 		return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(resultOfUserQuery);
+	}
+	
+	@GetMapping(value= "getservices")
+	public ResponseEntity<?> getServicesProfessionals(@RequestParam String specialty){
+		List<Long> resultOfUsersIdsQuery = repoProfessional.getProfessionalService(specialty);
+		List<User> resultOfUserQuery = new ArrayList<User>();
+		
+		if(resultOfUsersIdsQuery.size() > 0) {
+			for(Long currentId : resultOfUsersIdsQuery) {
+				resultOfUserQuery.add(repoUser.findByUserId(currentId));
+			}
+			
+			for(User currentUser : resultOfUserQuery) {
+				currentUser.setPassword(null);
+				currentUser.setCpf(null);
+				currentUser.setDateOfBirth(null);
+			}
+			
+			return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(resultOfUserQuery);
+		
+		} else {
+			return ResponseEntity.status(HttpStatusCode.valueOf(404)).body("Serviço não encontrado...");
+		}
 	}
 	
 	@GetMapping(value = "/email")
