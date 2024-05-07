@@ -12,6 +12,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	// Todos os Repositories são interfaces para trabalhar diretamente com
 	// as entities do DB
 	
+	@Query(value = "SELECT * FROM TB_USER WHERE id = :user_id", nativeQuery = true)
+	User findByUserId(Long user_id);
+	
 	@Query(value = "SELECT username FROM TB_USER WHERE email ilike :email", nativeQuery = true)
 	String findUsername(String email);
 	
