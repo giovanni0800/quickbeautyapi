@@ -141,7 +141,7 @@ public class UserController {
 		return ResponseEntity.status(HttpStatusCode.valueOf(200)).body(resultOfUserQuery);
 	}
 	
-	@GetMapping(value= "getservices")
+	@PostMapping(value= "getservices")
 	public ResponseEntity<?> getServicesProfessionals(@RequestParam String specialty){
 		List<Long> resultOfUsersIdsQuery = repoProfessional.getProfessionalService(specialty);
 		List<User> resultOfUserQuery = new ArrayList<User>();
