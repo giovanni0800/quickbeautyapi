@@ -22,6 +22,6 @@ public interface ProfessionalRepository extends JpaRepository<Professional, Long
 	@Query(value = "SELECT id FROM tb_professional WHERE user_id = :user_id", nativeQuery = true)
 	Long getLongProfessionalId(Long user_id);
 	
-	@Query(value = "SELECT user_id  FROM tb_professional WHERE specialty = :specialty", nativeQuery = true)
+	@Query(value = "SELECT user_id  FROM tb_professional WHERE specialty ilike :specialty", nativeQuery = true)
 	List<Long> getProfessionalService(String specialty);
 }
